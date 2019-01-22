@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>ChatBot</title>
+    </head>
+    <body>
+        <form action="/query" method="POST">
+            <input name="msg" id="msg">
+            <button type="submit" id="send">SUBMIT</button>
+        </form>
+        <button onclick="play()">play</button>
+        <button onclick="listen()">listen</button>
+    </body>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.4.5/p5.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.4.5/addons/p5.dom.js"></script>
+    <script src="static/p5.speech.js"></script>
+    <script>
+
+    var syn = new p5.Speech(); // speech synthesis object
+    function play()
+    {
+
+        syn.speak('hi there'); // say something 
+        console.log("zz")
+    }
+
+    var rec = new p5.SpeechRec(); // speech recognition object (will prompt for mic access)
+    rec.onResult = showResult; // bind callback function to trigger when speech is recognized
+    function listen()
+    {
+        rec.start(); // start listening
+    }
+
+    function showResult()
+    {
+        console.log(rec.resultString); // log the result
+        document.getElementById("msg").value = rec.resultString
+        document.getElementById("send").click();
+    }
+
+    </script>
+</html>
